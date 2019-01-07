@@ -251,8 +251,8 @@ public class CommandsExecutor {
         addCommand("spawn", 3, SpawnCommand.class);
         addCommand("mutemap", 3, MuteMapCommand.class);
         addCommand("addlp", 3, AddLostPointsCommand.class);
-        addCommand("givep", 3, GivePunishCommand.class);
-        addCommand("checkp", 3, GetPunishCommand.class);
+        addCommand("infract", 3, InfractCommand.class);
+        addCommand("infractions", 3, InfractionsCommand.class);
         addCommand("checkdmg", 3, CheckDmgCommand.class);
         addCommand("inmap", 3, InMapCommand.class);
         addCommand("reloadevents", 3, ReloadEventsCommand.class);

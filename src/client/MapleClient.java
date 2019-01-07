@@ -123,7 +123,7 @@ public class MapleClient {
 	private long lastNpcClick;
 	private long sessionId;
         public Calendar lastLogin = null;
-        private int punish;
+        private int infractions;
         
         public MapleClient(MapleAESOFB send, MapleAESOFB receive, IoSession session) {
 		this.send = send;
@@ -1143,16 +1143,16 @@ public class MapleClient {
 		votePoints += points;
 		saveVotePoints();
 	}
-        public int getPunish(){
+        public int getInfractions(){
 		int points = 0;
 		try {
                         Connection con = DatabaseConnection.getConnection();
-			PreparedStatement ps = con.prepareStatement("SELECT `punish` FROM accounts WHERE id = ?");
+			PreparedStatement ps = con.prepareStatement("SELECT `infractions` FROM accounts WHERE id = ?");
 			ps.setInt(1, accId);
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				points = rs.getInt("punish");
+				points = rs.getInt("infractions");
 			}
 			ps.close();
 			rs.close();
@@ -1161,19 +1161,19 @@ public class MapleClient {
 		} catch (SQLException e) {
                     e.printStackTrace();
 		}
-                punish = points;
-		return punish;
+                infractions = points;
+		return infractions;
 	}
 
-	public void addPunish(int points) {
-		punish += points;
-		savePunish();
+	public void addInfraction() {
+		this.infractions += 1;
+		saveInfractions();
 	}
-        private void savePunish() {
+        private void saveInfractions() {
 		try {
 			Connection con = DatabaseConnection.getConnection();
-			try (PreparedStatement ps = con.prepareStatement("UPDATE accounts SET punish = ? WHERE id = ?")) {
-				ps.setInt(1, punish);
+			try (PreparedStatement ps = con.prepareStatement("UPDATE accounts SET infractions = ? WHERE id = ?")) {
+				ps.setInt(1, infractions);
 				ps.setInt(2, accId);
 				ps.executeUpdate();
 			}

@@ -13,23 +13,23 @@ import client.command.Command;
  *
  * @author Administrator
  */
-public class GivePunishCommand extends Command {
+public class InfractCommand extends Command {
     {
-        setDescription("");
+        setDescription("Give a player an infraction.");
     }
 
     @Override
     public void execute(MapleClient c, String[] params) {
         MapleCharacter player = c.getPlayer();
-        if (params.length < 2) {
-            player.yellowMessage("Syntax: !givep <playername> <Punish Points>");
+        if (params.length < 1) {
+            player.yellowMessage("Syntax: !infract <playername>");
             return;
         }
 
         MapleCharacter victim = c.getChannelServer().getPlayerStorage().getCharacterByName(params[0]);
         if (victim != null) {
-            victim.getClient().addPunish(Integer.parseInt(params[1]));
-            player.message("Punish Point given.");
+            victim.getClient().addInfraction();
+            player.message("Infraction has been given.");
         } else {
             player.message("Player '" + params[0] + "' could not be found on this channel.");
         }
